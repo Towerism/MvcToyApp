@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Highway.Data;
 using Highway.Data.Contexts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +13,7 @@ namespace MvcToyApp.Tests
     [TestClass]
     public class AccountServiceTest
     {
-        private InMemoryDataContext _context;
+        private IDataContext _context;
 
         [TestInitialize]
         public void Setup()
@@ -23,6 +24,7 @@ namespace MvcToyApp.Tests
         [TestMethod]
         public void ShouldAddUserByName()
         {
+            _context = new InMemoryDataContext();
             var service = new AccountService(new Repository(_context));
 
             service.AddUser("Martin");
@@ -60,7 +62,9 @@ namespace MvcToyApp.Tests
         [TestMethod]
         public void ShouldQueryUsersById()
         {
-            _context.Add(new User("Martin"));
+            var userFixture = new User("Martin");
+            userFixture.Id = 1;
+            _context.Add(userFixture);
             _context.Commit();
             var service = new AccountService(new Repository(_context));
 
