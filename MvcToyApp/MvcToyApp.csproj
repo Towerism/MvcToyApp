@@ -362,6 +362,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Data\Commands\DeleteUserById.cs" />
+    <Compile Include="Data\Commands\UpdateUserName.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

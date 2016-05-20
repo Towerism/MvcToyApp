@@ -50,5 +50,10 @@ namespace MvcToyApp.Services
         {
             _repository.Execute(new DeleteUserById(id));
         }
+
+        public void UpdateUserName(int id, string newName)
+        {
+            _repository.Execute(new UpdateUserName(id, newName));
+        }
     }
 }

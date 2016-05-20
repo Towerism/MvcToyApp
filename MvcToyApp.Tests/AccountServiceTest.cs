@@ -103,5 +103,20 @@ namespace MvcToyApp.Tests
 
             user.Should().BeNull();
         }
+
+        [TestMethod]
+        public void ShouldUpdateUserNameById()
+        {
+            var user = new User("Martin") {Id = 1};
+            _context.Add(user);
+            _context.Commit();
+
+            _service.UpdateUserName(1, "Nitram");
+            user = _service.GetUser("Nitram");
+            var nullUser = _service.GetUser("Martin");
+
+            user.Should().NotBeNull();
+            nullUser.Should().BeNull();
+        }
     }
 }

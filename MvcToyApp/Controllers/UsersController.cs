@@ -77,7 +77,8 @@ namespace MvcToyApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] User user)
         {
-            // if (!ModelState.IsValid) return View(user);
+            if (!ModelState.IsValid) return View(user);
+            _service.UpdateUserName(user.Id, user.Name);
             return RedirectToAction("Index");
         }
 
