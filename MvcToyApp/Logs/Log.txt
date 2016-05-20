@@ -232,3 +232,4 @@ System.InvalidOperationException: The class 'MvcToyApp.Data.Entities.User' has n
 2016-05-20 15:01:09.0350|INFO|Default|Application Startup Completed|
 2016-05-20 15:02:31.3973|INFO|Default|Application Shutdown|
 2016-05-20 15:03:02.8937|INFO|Default|Application Startup Completed|
+2016-05-20 15:11:35.5749|INFO|Default|Application Shutdown|

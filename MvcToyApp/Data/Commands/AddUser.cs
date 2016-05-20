@@ -13,5 +13,14 @@ namespace MvcToyApp.Data.Commands
                 c.Commit();
             };
         }
+
+        public AddUser(User user)
+        {
+            ContextQuery = c =>
+            {
+                c.Add(user);
+                c.Commit();
+            };
+        }
     }
 }

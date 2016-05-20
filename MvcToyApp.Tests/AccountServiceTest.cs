@@ -85,5 +85,17 @@ namespace MvcToyApp.Tests
 
             users.Should().BeEmpty();
         }
+
+        [TestMethod]
+        public void ShouldAddUser()
+        {
+            var service = new AccountService(new Repository(_context));
+
+            service.AddUser(new User("Martin"));
+
+            var user = service.GetUser("Martin");
+
+            user.Should().NotBeNull();
+        }
     }
 }

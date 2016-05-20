@@ -21,6 +21,11 @@ namespace MvcToyApp.Services
             _repository.Execute(new AddUser(name));
         }
 
+        public void AddUser(User user)
+        {
+            _repository.Execute(new AddUser(user));
+        }
+
         public User GetUser(string name)
         {
             return _repository.Find(new UserByName(name));
