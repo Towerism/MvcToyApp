@@ -51,7 +51,7 @@ namespace MvcToyApp.Controllers
         public ActionResult Create([Bind(Include = "Id,Name")] User user)
         {
             if (!ModelState.IsValid) return View(user);
-            _service.AddUser(user.Name);
+            _service.AddUser(user);
             return RedirectToAction("Index");
         }
 
@@ -101,8 +101,7 @@ namespace MvcToyApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var user = _service.GetUser(id);
-            _service.DeleteUsers(user.Name);
+            _service.DeleteUserById(id);
             return RedirectToAction("Index");
         }
     }
