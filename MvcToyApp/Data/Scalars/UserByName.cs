@@ -8,7 +8,7 @@ namespace MvcToyApp.Data.Scalars
     {
         public UserByName(string name)
         {
-            ContextQuery = c => c.AsQueryable<User>().Single(x => x.Name == name);
+            ContextQuery = c => c.AsQueryable<User>().SingleOrDefault(x => x.Name == name);
         }
     }
 }

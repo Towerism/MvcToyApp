@@ -57,12 +57,11 @@ namespace MvcToyApp.Tests
         [TestMethod]
         public void ShouldQueryUsersById()
         {
-            var userFixture = new User("Martin");
-            userFixture.Id = 1;
-            _context.Add(userFixture);
+            var user = new User("Martin") {Id = 1};
+            _context.Add(user);
             _context.Commit();
 
-            var user = _service.GetUser(1);
+            user = _service.GetUser(1);
 
             user.Should().NotBeNull();
         }
@@ -84,11 +83,25 @@ namespace MvcToyApp.Tests
         [TestMethod]
         public void ShouldAddUser()
         {
-            _service.AddUser(new User("Martin"));
+            _context.Add(new User("Martin"));
+            _context.Commit();
 
             var user = _service.GetUser("Martin");
 
             user.Should().NotBeNull();
+        }
+
+        [TestMethod]
+        public void ShouldDeleteUserById()
+        {
+            var user = new User("Martin") {Id = 1};
+            _context.Add(user);
+            _context.Commit();
+
+            _service.DeleteUserById(1);
+            user = _service.GetUser("Martin");
+
+            user.Should().BeNull();
         }
     }
 }
