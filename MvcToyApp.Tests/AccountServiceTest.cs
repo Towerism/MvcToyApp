@@ -1,11 +1,9 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Highway.Data;
 using Highway.Data.Contexts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcToyApp.Data.Entities;
 using MvcToyApp.Services;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace MvcToyApp.Tests
@@ -71,6 +69,21 @@ namespace MvcToyApp.Tests
             var user = service.GetUser(1);
 
             user.Should().NotBeNull();
+        }
+
+        [TestMethod]
+        public void ShouldDeleteUsersByName()
+        {
+            _context.Add(new User("Martin"));
+            _context.Add(new User("Martin"));
+            _context.Commit();
+            var service = new AccountService(new Repository(_context));
+
+            service.DeleteUsers("Martin");
+
+            var users = service.GetAllUsers();
+
+            users.Should().BeEmpty();
         }
     }
 }

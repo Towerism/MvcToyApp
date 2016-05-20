@@ -1,6 +1,4 @@
-﻿using System.Linq.Dynamic;
-using System.Security.Cryptography.X509Certificates;
-using Highway.Data;
+﻿using Highway.Data;
 using MvcToyApp.Data.Entities;
 
 namespace MvcToyApp.Data.Commands

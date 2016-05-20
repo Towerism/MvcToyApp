@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Highway.Data;
+﻿using System.Collections.Generic;
 using MvcToyApp.Data.Commands;
 using MvcToyApp.Data.Entities;
 using System.Linq;
+using Highway.Data;
+using MvcToyApp.Data.Scalars;
 
 namespace MvcToyApp.Services
 {
@@ -25,7 +25,7 @@ namespace MvcToyApp.Services
         {
             return _repository.Find(new UserByName(name));
         }
-        public object GetUser(int id)
+        public User GetUser(int id)
         {
             return _repository.Find(new GetById<int, User>(id));
         }
@@ -34,6 +34,11 @@ namespace MvcToyApp.Services
         {
             var users = _repository.Find(new AllUsers());
             return users.ToList();
+        }
+
+        public void DeleteUsers(string name)
+        {
+            _repository.Execute(new DeleteUsers(name));
         }
     }
 }
