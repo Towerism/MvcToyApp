@@ -12,20 +12,19 @@ namespace MvcToyApp.Tests
     public class AccountServiceTest
     {
         private IDataContext _context;
+        private AccountService _service;
 
         [TestInitialize]
         public void Setup()
         {
             _context = new InMemoryDataContext();
+            _service = new AccountService(new Repository(_context));
         }
 
         [TestMethod]
         public void ShouldAddUserByName()
         {
-            _context = new InMemoryDataContext();
-            var service = new AccountService(new Repository(_context));
-
-            service.AddUser("Martin");
+            _service.AddUser("Martin");
 
             _context.AsQueryable<User>().Count(x => x.Name == "Martin").Should().Be(1);
         }
@@ -36,9 +35,8 @@ namespace MvcToyApp.Tests
             _context.Add(new User("Martin"));
             _context.Add(new User("Sean"));
             _context.Commit();
-            var service = new AccountService(new Repository(_context));
 
-            User user = service.GetUser("Martin");
+            User user = _service.GetUser("Martin");
 
             user.Should().NotBeNull();
         }
@@ -50,9 +48,8 @@ namespace MvcToyApp.Tests
             _context.Add(new User("Sean"));
             _context.Add(new User("Austin"));
             _context.Commit();
-            var service = new AccountService(new Repository(_context));
 
-            var users = service.GetAllUsers();
+            var users = _service.GetAllUsers();
 
             users.Count().Should().Be(3);
         }
@@ -64,9 +61,8 @@ namespace MvcToyApp.Tests
             userFixture.Id = 1;
             _context.Add(userFixture);
             _context.Commit();
-            var service = new AccountService(new Repository(_context));
 
-            var user = service.GetUser(1);
+            var user = _service.GetUser(1);
 
             user.Should().NotBeNull();
         }
@@ -77,11 +73,10 @@ namespace MvcToyApp.Tests
             _context.Add(new User("Martin"));
             _context.Add(new User("Martin"));
             _context.Commit();
-            var service = new AccountService(new Repository(_context));
 
-            service.DeleteUsers("Martin");
+            _service.DeleteUsers("Martin");
 
-            var users = service.GetAllUsers();
+            var users = _service.GetAllUsers();
 
             users.Should().BeEmpty();
         }
@@ -89,11 +84,9 @@ namespace MvcToyApp.Tests
         [TestMethod]
         public void ShouldAddUser()
         {
-            var service = new AccountService(new Repository(_context));
+            _service.AddUser(new User("Martin"));
 
-            service.AddUser(new User("Martin"));
-
-            var user = service.GetUser("Martin");
+            var user = _service.GetUser("Martin");
 
             user.Should().NotBeNull();
         }
